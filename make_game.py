@@ -721,6 +721,10 @@ def pick_game() -> str:
 
 def choose_game() -> str:
     """No --game given: find the dump, or ask for it."""
+     if env_path := os.environ.get("LEONIDA_GAME_PATH"):
+        if match_version(env_path):
+            log(f"using LEONIDA_GAME_PATH: {env_path}")
+            return env_path
     log("looking for your game files...")
     containers = []
     found = find_dumps(containers)
